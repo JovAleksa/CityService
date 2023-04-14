@@ -1,0 +1,236 @@
+<html>
+
+<head>
+	<title>Organization Client</title>
+	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" />
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/search.css" />
+	<script type="text/javascript" src="js/popper.js"></script>
+	<script type="text/javascript" src="js/skripta.js"></script>
+</head>
+
+<body onload="loadPage()">
+	<div class="container">
+
+		<div id="logout" style="display:none" class="input-group mb-3">
+			<br /><br />
+			<h3>Logout</h3>
+			<br />
+			<button id="btnLogout" onclick="logout()" aria-describedby="tooltip"
+				class="btn btn-warning">Odjava</button>
+			<div id="tooltip" role="tooltip">
+				Click here to logout
+				<div id="arrow" data-popper-arrow></div>
+			</div>
+			<p id="info"></p>
+		</div>
+		<br /><br />
+
+		<div id="loginFormStart" style="display:none" class="input-group mb-3">
+			<h1>Login</h1>
+			<form method="post" action="post/" id="loginFormStart" onsubmit="return loginUser()">
+				<div class="row">
+					<div class="col"></div>
+					<div class="col" style="text-align:right;">
+						<p style="text-align:left;"> <label for="usernameLogin" class="col-sm col-form-label">Korisnicko
+								ime: </label></p>
+						<p style="text-align:left;"><label for="passwordLogin" class="col-sm col-form-label">Lozinka:
+							</label></p>
+					</div>
+					<div class="col">
+						<p style="text-align:left;"><input type="text" id="usernameLogin" class="form-control input-sm"
+								required minlength="4"></p>
+						<p style="text-align:left;"><input type="password" id="passwordLogin"
+								class="form-control input-sm" required minlength="6"></p>
+					</div>
+					<div class="col"></div>
+				</div>
+				<br />
+				<button class="btn btn-primary">Login</button>
+				<button type="button" id="btnRegister" onclick="cancelRegistracija()"
+					class="btn btn-success btn-xs">Odustajanje</button>
+
+			</form>
+
+		</div>
+		<div id="loginForm" style="display:none" class="input-group mb-3">
+			<h1>Korisnik nije prijavljen na sistem</h1>
+
+			<button type="button" id="btnLogin" onclick="showLoginNew()" class="btn btn-primary">Login</button>
+			<br />
+			<br />
+			<button type="button" id="btnRegister" onclick="showRegistration()"
+				class="btn btn-warning">Registracija</button>
+				
+
+
+
+		</div>
+
+		<div id="registerForm" style="display:none" class="input-group mb-3">
+			<h3>Register</h3>
+			<form method="post" action="post/" id="registerForm" onsubmit="return registerUser()">
+				<div class="row">
+					<div class="col"></div>
+					<div class="col">
+						<p style="text-align:left;"> <label for="usernameRegister"
+								class="col-sm col-form-label">Korisnicko ime</label></p>
+						<p style="text-align:left;"> <label for="emailRegister"
+								class="col-sm col-form-label">Email:</label></p>
+						<p style="text-align:left;"> <label for="passwordRegister"
+								class="col-sm col-form-label">Lozinka: </label></p>
+						<p style="text-align:left;"> <label for="confirmPasswordRegister"
+								class="col-sm col-form-label">Potvrdi lozinku: </label></p>
+					</div>
+					<div class="col">
+						<p style="text-align:left;"><input type="text" id="usernameRegister"
+								class="form-control input-sm" minlength="4" required></p>
+						<p style="text-align:left;"><input type="text" id="emailRegister" class="form-control input-sm"
+								minlength="6" required ></p>
+						<p style="text-align:left;"><input type="password" id="passwordRegister"
+								class="form-control input-sm" minlength="6" required></p>
+						<p style="text-align:left;"><input type="password" id="confirmPasswordRegister"
+								class="form-control input-sm" minlength="6" required></p>
+					</div>
+					<div class="col"></div>
+				</div>
+				<br />
+				<button class="btn btn-primary">Submit</button>
+			</form>
+			<div class="borderless">
+				<p>Password value needs to meet following parameters:</p>
+				<ol class="list-group list-group-numbered" style="border: none">
+					<li class="list-group-item" style="border: none">
+						at least six characters
+					</li>
+					<li class="list-group-item" style="border: none">
+						at least one numeric character
+					</li>
+					<li class="list-group-item" style="border: none">
+						at least one non-alphanumeric character
+					</li>
+					<li class="list-group-item" style="border: none">
+						at least one small leter
+					</li>
+					<li class="list-group-item" style="border: none">
+						at least one capital letter
+					</li>
+				</ol>
+			</div>
+			<link />
+		</div>
+		<br />
+		<br />
+
+		<div id="searchSellers" style="display:none" class="input-group">
+			<br />
+			<h1>Pretraga prodavaca</h1>
+			<br />
+			<div class="row">
+				<div class="col"style="text-align: right;">
+					<label for="startSearch" class="col-sm col-form-label"  >Unesi ime prodavnice:</label>
+				</div>
+				<div class="col" style="text-align: left;">
+					<input type="text" class="form-control input-sm" id="startSearch" minlength="4" style="resize:horizontal; width:200px" required>
+				</div>			
+				
+				<div class="col"></div>
+				<div class="col"></div>
+				<div class="col">
+					<button type="button" id="btnSearchFestival" onclick="searchSellers()" class="btn btn-primary">Pretraga</button>
+				</div>
+			</div>
+		</div>
+
+		<div id="searchFormZaposleni" style="display:none" class="input-group mb-3">
+
+			<br />
+			<h1>Pretraga zaposlenih po plati</h1>
+			<br />
+			<form action="post/" method="post" id="searchFormZaposleniForm"
+				onsubmit="return submitSearchZaposleniForm()">
+				<div class="row">
+					<!-- <div class="col"></div> -->
+					<div class="col">
+						<p style="text-align:center;"> <label for="minpopulation"
+								class="col-sm col-form-label">Najmanje</label>
+						</p>
+						<p style="text-align:center;"> <label for="maxpopulation"
+								class="col-sm col-form-label">Najvise</label>
+						</p>
+					</div>
+					<div class="col" style="text-align: right;">
+
+						<p style="text-align:center;"><input class="form-control" id="minpopulation" type="number"
+								min="0" required /> </p>
+						<p style="text-align:center;"><input class="form-control" id="maxpopulation" type="number"
+								min="0" required /> </p>
+					</div>
+					<div class="col">
+						<p style="text-align:center;"><input type="submit" value="Traži"
+								class="btn btn-lg  btn-warning" /></p>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div id="data" style="display:none" class="input-group mb-3">
+		</div>
+
+		<div id="formDiv" style="display:none" class="input-group mb-3">
+			<br />
+			<h1>Dodavanje novog zaposlenog</h1>
+			<br />
+			<form id="addfestivalForm" onsubmit="return submitSellerForm()">
+
+				<div class="row">
+					<div class="col"></div>
+					<div class="col"  style="text-align: right;">
+						<p style="text-align:left;"> <label for="addPlace" class="col-sm col-form-label">Org.
+								jedinica:</label>
+						</p>
+						<p style="text-align:left;"> <label for="addRola" class="col-sm col-form-label">Rola:</label>
+						</p>
+						<p style="text-align:left;"> <label for="addImeIprezime" class="col-sm col-form-label">Ime i
+								prezime:</label>
+						</p>
+
+						<p style="text-align:left;"> <label for="addYear" class="col-sm col-form-label">Godina
+								rodjenja:</label></p>
+						<p style="text-align:left;"> <label for="addYearZaposlenja" class="col-sm col-form-label">Godina
+								zaposlenja:</label></p>
+						<p style="text-align:left;"> <label for="addPlata" class="col-sm col-form-label">Plata:</label>
+						</p>
+
+					</div>
+					<div class="col" style="text-align: right;">
+						<p style="text-align:left;"><select id="organizacionajedinicaid" class="form-control"> </select>
+						</p>
+						<p style="text-align:left;"><input type="text" class="form-control" id="imeiprezime"
+								minlength="2" required></p>
+						<p style="text-align:left;"><input type="text" class="form-control" id="rola" minlength="2"
+								required></p>
+						<p style="text-align:left;"><input style="width: 50%; float: right; clear: both;" type="number" class="form-control" id="godinarodjenja"
+								minlength="4" required></p>
+								<br/>
+								<br/>
+								
+						<p style="text-align:left;"><input style="width: 50%;float: right; clear: both;" type="number" class="form-control" id="godinazaposlenja"
+								minlength="4" required></p>
+								<br/>								
+								<br/>
+						<p style="text-align:left;"><input style="width: 50%;float: right; clear: both; " type="number" class="form-control" id="plata" minlength="4"
+								required></p>
+
+					</div>
+					<div class="col"></div>
+				</div>
+				<button type="submit" class="btn btn-warning">Dodavanje</button></p>
+				<button onclick="cancel()" type="submit" class="btn btn-outline">Odustajanje</button>
+			</form>
+
+		</div>
+	</div>
+</body>
+
+</html>
